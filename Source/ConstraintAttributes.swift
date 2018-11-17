@@ -28,10 +28,12 @@
 #endif
 
 
+/// 约束位置封装，遵守 OptionSet 方法，能够快速进行位运算
 internal struct ConstraintAttributes : OptionSet, ExpressibleByIntegerLiteral {
     
     typealias IntegerLiteralType = UInt
     
+    // 根据类型创建约束对象
     internal init(rawValue: UInt) {
         self.rawValue = rawValue
     }
@@ -55,7 +57,7 @@ internal struct ConstraintAttributes : OptionSet, ExpressibleByIntegerLiteral {
     internal static func fromMask(_ raw: UInt) -> ConstraintAttributes { return self.init(raw) }
     
     // normal
-    
+    // 将默认状态对应成 Int Optional 保证正常解析
     internal static var none: ConstraintAttributes { return 0 }
     internal static var left: ConstraintAttributes { return 1 }
     internal static var top: ConstraintAttributes {  return 2 }
@@ -97,7 +99,7 @@ internal struct ConstraintAttributes : OptionSet, ExpressibleByIntegerLiteral {
     internal static var centerYWithinMargins: ConstraintAttributes { return 524288 }
     
     // aggregates
-    
+    // 通过取与将对象进行收拢
     internal static var edges: ConstraintAttributes { return 15 }
     internal static var size: ConstraintAttributes { return 192 }
     internal static var center: ConstraintAttributes { return 768 }
@@ -108,6 +110,7 @@ internal struct ConstraintAttributes : OptionSet, ExpressibleByIntegerLiteral {
     @available(iOS 8.0, *)
     internal static var centerWithinMargins: ConstraintAttributes { return 786432 }
     
+    // 返回当前对象组合的属性类型，比如说 make.left.right.equal(@0) 那么就会在这里加入 left right
     internal var layoutAttributes:[LayoutAttribute] {
         var attrs = [LayoutAttribute]()
         if (self.contains(ConstraintAttributes.left)) {
@@ -178,6 +181,7 @@ internal struct ConstraintAttributes : OptionSet, ExpressibleByIntegerLiteral {
     }
 }
 
+// 重载运算符，方便进行 + += -= == 的运算，方便对象添加
 internal func + (left: ConstraintAttributes, right: ConstraintAttributes) -> ConstraintAttributes {
     return left.union(right)
 }

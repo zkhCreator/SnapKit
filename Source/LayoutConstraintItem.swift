@@ -43,6 +43,7 @@ extension LayoutConstraintItem {
     
     internal func prepare() {
         if let view = self as? ConstraintView {
+            // 设置这个属性，防止因为 autoresizingMask 自动布局导致 UI 不准确
             view.translatesAutoresizingMaskIntoConstraints = false
         }
     }

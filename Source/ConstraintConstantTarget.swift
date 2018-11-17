@@ -43,6 +43,7 @@ extension ConstraintInsets: ConstraintConstantTarget {
 extension ConstraintConstantTarget {
     
     internal func constraintConstantTargetValueFor(layoutAttribute: LayoutAttribute) -> CGFloat {
+        // 将传递进来的对象根据穿寄来的方向数值化
         if let value = self as? CGFloat {
             return value
         }
@@ -75,6 +76,7 @@ extension ConstraintConstantTarget {
         
         if let value = self as? CGPoint {
             #if os(iOS) || os(tvOS)
+            // 通过 CGPoint 将左右对称的数据结构进行解析
                 switch layoutAttribute {
                 case .left, .right, .leading, .trailing, .centerX, .leftMargin, .rightMargin, .leadingMargin, .trailingMargin, .centerXWithinMargins:
                     return value.x

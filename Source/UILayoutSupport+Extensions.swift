@@ -29,6 +29,7 @@
 @available(iOS 8.0, *)
 public extension ConstraintLayoutSupport {
     
+    // 对于 UILayout 增加统一参数
     public var snp: ConstraintLayoutSupportDSL {
         return ConstraintLayoutSupportDSL(support: self)
     }

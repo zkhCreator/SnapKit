@@ -28,7 +28,7 @@
     
 @available(iOS 9.0, OSX 10.11, *)
 public extension ConstraintLayoutGuide {
-    
+    //  对于 UILayoutGuide 和 NSLayoutGuide 增加 snp 参数。
     public var snp: ConstraintLayoutGuideDSL {
         return ConstraintLayoutGuideDSL(guide: self)
     }

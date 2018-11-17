@@ -29,7 +29,7 @@
 
 
 public extension ConstraintView {
-    
+    //  基于 swift 的设计原理，将所有的 View 参数处理收拢到一个对象当中。
     @available(*, deprecated:3.0, message:"Use newer snp.* syntax.")
     public var snp_left: ConstraintItem { return self.snp.left }
     
@@ -145,6 +145,7 @@ public extension ConstraintView {
         self.snp.removeConstraints()
     }
     
+    // 用于封装所有设置方法的 snp 对象
     public var snp: ConstraintViewDSL {
         return ConstraintViewDSL(view: self)
     }

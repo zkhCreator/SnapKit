@@ -27,7 +27,7 @@
     import AppKit
 #endif
 
-
+//  面向协议编程，将所有遵守的对象增加对象 target 和对应的标识名称
 public protocol ConstraintDSL {
     
     var target: AnyObject? { get }
@@ -36,8 +36,9 @@ public protocol ConstraintDSL {
     func label() -> String?
     
 }
+
 extension ConstraintDSL {
-    
+    // 通过 extension 增加默认方法的实现
     public func setLabel(_ value: String?) {
         objc_setAssociatedObject(self.target as Any, &labelKey, value, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
@@ -46,15 +47,16 @@ extension ConstraintDSL {
     }
     
 }
+
 private var labelKey: UInt8 = 0
 
-
+//  创建默认协议，用于参数设置
 public protocol ConstraintBasicAttributesDSL : ConstraintDSL {
 }
 extension ConstraintBasicAttributesDSL {
     
     // MARK: Basics
-    
+    // 增加上下左右的对象，通过枚举类型的位偏移，保证数据解析正确
     public var left: ConstraintItem {
         return ConstraintItem(target: self.target, attributes: ConstraintAttributes.left)
     }
@@ -109,12 +111,13 @@ extension ConstraintBasicAttributesDSL {
     
 }
 
+// 对于 View 的 DSL 进行一层协议封装
 public protocol ConstraintAttributesDSL : ConstraintBasicAttributesDSL {
 }
 extension ConstraintAttributesDSL {
     
     // MARK: Baselines
-    
+    // 提供默认方法
     @available(*, deprecated:3.0, message:"Use .lastBaseline instead")
     public var baseline: ConstraintItem {
         return ConstraintItem(target: self.target, attributes: ConstraintAttributes.lastBaseline)
@@ -131,7 +134,7 @@ extension ConstraintAttributesDSL {
     }
     
     // MARK: Margins
-    
+    // 提供默认 Margin
     @available(iOS 8.0, *)
     public var leftMargin: ConstraintItem {
         return ConstraintItem(target: self.target, attributes: ConstraintAttributes.leftMargin)

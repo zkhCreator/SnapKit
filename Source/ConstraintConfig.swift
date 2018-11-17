@@ -20,6 +20,7 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+//  用于统一封装界面方向，用于 leading 和 trailing 在不同国家的左右不同的问题。
 
 #if os(iOS) || os(tvOS)
     import UIKit

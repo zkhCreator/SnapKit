@@ -35,22 +35,27 @@ public struct ConstraintViewDSL: ConstraintAttributesDSL {
         return ConstraintMaker.prepareConstraints(item: self.view, closure: closure)
     }
     
+    // 添加约束
     public func makeConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
         ConstraintMaker.makeConstraints(item: self.view, closure: closure)
     }
     
+    // 重置约束
     public func remakeConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
         ConstraintMaker.remakeConstraints(item: self.view, closure: closure)
     }
     
+    // 更新约束
     public func updateConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
         ConstraintMaker.updateConstraints(item: self.view, closure: closure)
     }
     
+    // 删除所有约束
     public func removeConstraints() {
         ConstraintMaker.removeConstraints(item: self.view)
     }
     
+    //  增加压缩扩张值
     public var contentHuggingHorizontalPriority: Float {
         get {
             return self.view.contentHuggingPriority(for: .horizontal).rawValue
@@ -87,6 +92,7 @@ public struct ConstraintViewDSL: ConstraintAttributesDSL {
         }
     }
     
+    // 目标 view
     public var target: AnyObject? {
         return self.view
     }

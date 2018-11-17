@@ -144,19 +144,23 @@ public class ConstraintMaker {
     }
     
     private let item: LayoutConstraintItem
+    // 将所有外部对于状态的表述收集起来
     private var descriptions = [ConstraintDescription]()
     
+    // 持有支持的 view
     internal init(item: LayoutConstraintItem) {
         self.item = item
         self.item.prepare()
     }
     
+    // 将属性转成描述，然后在 description 中加入这个描述，在将这个描述转成 ConstraintMakerExtendable 保证链式响应
     internal func makeExtendableWithAttributes(_ attributes: ConstraintAttributes) -> ConstraintMakerExtendable {
         let description = ConstraintDescription(item: self.item, attributes: attributes)
         self.descriptions.append(description)
         return ConstraintMakerExtendable(description)
     }
     
+    // 根据传入的 view 创建一个 maker，将 maker 通过回调往回传递。
     internal static func prepareConstraints(item: LayoutConstraintItem, closure: (_ make: ConstraintMaker) -> Void) -> [Constraint] {
         let maker = ConstraintMaker(item: item)
         closure(maker)
